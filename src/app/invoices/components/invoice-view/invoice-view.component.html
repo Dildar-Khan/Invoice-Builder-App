@@ -1,0 +1,64 @@
+<mat-card>
+    <mat-card-title>{{ invoiceView.item }}</mat-card-title>
+    <mat-card-content>
+        <table>
+            <tr>
+                <td class="column-title">Date:</td>
+                <td>
+                    {{ invoiceView.date | date }}
+                </td>
+            </tr>
+            <tr>
+                <td class="column-title">Due Date:</td>
+                <td>
+                    {{ invoiceView.due | date }}
+                </td>
+            </tr>
+            <tr>
+                <td class="column-title">Qty:</td>
+                <td>{{ invoiceView.qty }}</td>
+            </tr>
+            <tr>
+                <td class="column-title">Rate:</td>
+                <td>{{ invoiceView.rate }}</td>
+            </tr>
+            <tr>
+                <td class="column-title">Tax:</td>
+                <td>{{ invoiceView.tax }}</td>
+            </tr>
+            <tr>
+                <td class="column-title">Client Name:</td>
+                <td>
+                    {{ invoiceView.client.firstName }}
+                    {{ invoiceView.client.lastName }}
+                </td>
+            </tr>
+            <tr>
+                <td class="column-title">Client Email:</td>
+                <td>
+                    {{ invoiceView.client.email }}
+                </td>
+            </tr>
+            <tr>
+                <td class="column-title">Total:</td>
+                <td>${{ total }}</td>
+            </tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions>
+        <button
+            mat-button
+            [routerLink]="['/dashboard', 'invoices', invoiceView._id]"
+        >
+            Edit
+        </button>
+        <button mat-button (click)="downloadHandler(invoiceView._id)">
+            Download
+        </button>
+    </mat-card-actions>
+    <mat-progress-bar
+        *ngIf="isSpinnerLoading"
+        mode="indeterminate"
+        color="accent"
+    ></mat-progress-bar>
+</mat-card>

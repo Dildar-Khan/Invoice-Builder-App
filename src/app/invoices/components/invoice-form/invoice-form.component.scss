@@ -1,0 +1,14 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container > * {
+    width: 100%;
+}
+.mat-card {
+    width: 80%;
+}
+.btn-cancel {
+    left: 5px;
+}

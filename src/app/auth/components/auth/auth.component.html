@@ -1,0 +1,119 @@
+<div class="limiter">
+    <div class="container-login">
+        <mat-card>
+            <div class="mat-elevation-z8" *ngIf="isSpinnerLoading">
+                <div class="loading-shade">
+                    <mat-spinner color="accent"></mat-spinner>
+                </div>
+            </div>
+            <mat-card-title>{{ title }}</mat-card-title>
+            <mat-card-content>
+                <form
+                    class="form-container"
+                    [formGroup]="authForm"
+                    novalidate
+                    (ngSubmit)="onSubmit()"
+                >
+                    <mat-form-field color="accent">
+                        <input
+                            matInput
+                            placeholder="Email"
+                            formControlName="email"
+                        />
+                        <mat-error
+                            *ngIf="
+                                authForm.get('email').invalid &&
+                                authForm.get('email').touched
+                            "
+                            >Email is required</mat-error
+                        >
+                    </mat-form-field>
+
+                    <mat-form-field color="accent">
+                        <input
+                            matInput
+                            placeholder="Password"
+                            type="password"
+                            formControlName="password"
+                        />
+                        <mat-error
+                            *ngIf="
+                                authForm.get('password').invalid &&
+                                authForm.get('password').touched
+                            "
+                            >Password is required</mat-error
+                        >
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" *ngIf="title === 'Signup'">
+                        <input
+                            matInput
+                            placeholder="Name"
+                            type="text"
+                            formControlName="name"
+                        />
+                    </mat-form-field>
+
+                    <div>
+                        <button
+                            mat-raised-button
+                            class="btn-block"
+                            [disabled]="!authForm.valid"
+                            type="submit"
+                            color="accent"
+                        >
+                            {{ title }}
+                        </button>
+                        <a
+                            class="btn btn-block forgot-password"
+                            (click)="forgotPasswordHandler()"
+                            >forgot password</a
+                        >
+                        <!-- <button mat-raised-button color="accent" (click)="googleAuthHandler()">Google</button> -->
+                        <a
+                            href="/api/auth/google"
+                            class="btn btn-social btn-block btn-google"
+                            mat-button
+                            ><i class="fab fa-google"></i> Login with Google</a
+                        >
+                        <a
+                            href="/api/auth/twitter"
+                            class="btn btn-social btn-block btn-twitter"
+                            mat-button
+                            ><i class="fab fa-twitter"></i> Login with
+                            Twitter</a
+                        >
+                        <a
+                            href="/api/auth/github"
+                            class="btn btn-social btn-block btn-github"
+                            mat-button
+                            ><i class="fab fa-github"></i> Login with Github</a
+                        >
+                    </div>
+                </form>
+            </mat-card-content>
+            <div class="alternative" *ngIf="title === 'Login'">
+                <p>Don't have an account?</p>
+                <button
+                    mat-raised-button
+                    class="btn-block"
+                    color="accent"
+                    [routerLink]="['/signup']"
+                >
+                    Signup
+                </button>
+            </div>
+            <div class="alternative" *ngIf="title === 'Signup'">
+                <p>Already have an account?</p>
+                <button
+                    mat-raised-button
+                    class="btn-block"
+                    color="accent"
+                    [routerLink]="['/login']"
+                >
+                    Login
+                </button>
+            </div>
+        </mat-card>
+    </div>
+</div>

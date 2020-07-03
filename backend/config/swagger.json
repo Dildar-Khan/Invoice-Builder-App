@@ -1,0 +1,543 @@
+{
+    "swagger": "2.0",
+    "title": "Invoice Builder API Documentation",
+    "description": "Swagger API Documentation for Invoice builder MEAN Stack App",
+    "license": {
+        "name": "MIT",
+        "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0",
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        { "name": "Invoices", "description": "API for Invoices" },
+        { "name": "Clients", "description": "API for Clients" },
+        { "name": "Users", "description": "API for Users" }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/Users/signup": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create new Account",
+                "description": "Create new User",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "description": "User that we want to create",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/SignupUser"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "new User is created",
+                        "schema": {
+                            "$ref": "#definitions/UserSignupRsp"
+                        }
+                    }
+                }
+            }
+        },
+        "/Users/login": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Login to the account",
+                "description": "Login to the account",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "description": "User credentials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/User"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Login Successful",
+                        "schema": {
+                            "$ref": "#definitions/UserLoginRsp"
+                        }
+                    }
+                }
+            }
+        },
+        "/Clients": {
+            "post": {
+                "tags": ["Clients"],
+                "summary": "Create new Client",
+                "description": "Create new Client",
+                "parameters": [
+                    {
+                        "name": "client",
+                        "description": "Client that we want to create",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/Client"
+                        }
+                    },
+                    {
+                        "name": "authorization",
+                        "description": "Access token to authorize the user",
+                        "in": "header",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "new Client is created",
+                        "schema": {
+                            "$ref": "#definitions/Client"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Clients"],
+                "summary": "Find all clients",
+                "description": "All Clients",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "description": "Access token to authorize the user",
+                        "in": "header",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#definitions/Clients"
+                        }
+                    }
+                }
+            }
+        },
+        "/Clients/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Id of the Client",
+                    "type": "string"
+                },
+                {
+                    "name": "authorization",
+                    "description": "Access token to authorize the user",
+                    "in": "header",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "get": {
+                "tags": ["Clients"],
+                "description": "Find the Client by id",
+                "summary": "Find single Client",
+                "responses": {
+                    "200": {
+                        "description": "Client has found successfully",
+                        "schema": {
+                            "$ref": "#definitions/Client"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Clients"],
+                "description": "Delete the Client by id",
+                "summary": "Delete single Client",
+                "responses": {
+                    "200": {
+                        "description": "Client deleted successfully",
+                        "schema": {
+                            "$ref": "#definitions/Client"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Clients"],
+                "summary": "Update an Client",
+                "description": "Update an Client",
+                "parameters": [
+                    {
+                        "name": "Client",
+                        "description": "Client that we want to update",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/UpdateClient"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the Client",
+                        "type": "string"
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Client is updated",
+                        "schema": {
+                            "$ref": "#definitions/Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/Invoices": {
+            "post": {
+                "tags": ["Invoices"],
+                "summary": "Create new Invoice",
+                "description": "Create new Invoice",
+                "parameters": [
+                    {
+                        "name": "invoice",
+                        "description": "Invoice that we want to create",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/Invoice"
+                        }
+                    },
+                    {
+                        "name": "authorization",
+                        "description": "Access token to authorize the user",
+                        "in": "header",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "new Invoice is created",
+                        "schema": {
+                            "$ref": "#definitions/Invoice"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Invoices"],
+                "summary": "Find all invoices",
+                "description": "All Invoices",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "type": "integer",
+                        "description": "Set the page for paginatioon",
+                        "in": "query"
+                    },
+                    {
+                        "name": "perPage",
+                        "type": "integer",
+                        "description": "Define the limit for the records",
+                        "in": "query"
+                    },
+                    {
+                        "name": "filter",
+                        "type": "string",
+                        "description": "Filter the Invoices by item name",
+                        "in": "query"
+                    },
+                    {
+                        "name": "sortField",
+                        "type": "string",
+                        "description": "Define the sortField for sorting i.e item, date, due",
+                        "in": "query"
+                    },
+                    {
+                        "name": "sortDir",
+                        "type": "string",
+                        "description": "Define the sortDir i.e desc, asc",
+                        "in": "query"
+                    },
+                    {
+                        "name": "authorization",
+                        "description": "Access token to authorize the user",
+                        "in": "header",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#definitions/Invoice"
+                        }
+                    }
+                }
+            }
+        },
+        "/Invoices/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Id of the Invoice",
+                    "type": "string"
+                },
+                {
+                    "name": "authorization",
+                    "description": "Access token to authorize the user",
+                    "in": "header",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "get": {
+                "tags": ["Invoices"],
+                "description": "Find the Invoice by id",
+                "summary": "Find single Invoice",
+                "responses": {
+                    "200": {
+                        "description": "Invoice has found successfully",
+                        "schema": {
+                            "$ref": "#definitions/Invoice"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Invoices"],
+                "description": "Delete the Invoice by id",
+                "summary": "Delete single Invoice",
+                "responses": {
+                    "200": {
+                        "description": "Invoice deleted successfully",
+                        "schema": {
+                            "$ref": "#definitions/Invoice"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Invoices"],
+                "summary": "Update an Invoice",
+                "description": "Update an Invoice",
+                "parameters": [
+                    {
+                        "name": "invoice",
+                        "description": "Invoice that we want to update",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/UpdateInvoice"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the Invoice",
+                        "type": "string"
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Invoice is updated",
+                        "schema": {
+                            "$ref": "#definitions/Invoice"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": ["email", "password"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "SignupUser": {
+            "required": ["email", "password", "name"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserSignupRsp": {
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserLoginRsp": {
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "Client": {
+            "required": ["firstName", "lastName", "email"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "Clients": {
+            "type": "array",
+            "items": {
+                "$ref": "#definitions/Client"
+            }
+        },
+        "UpdateClient": {
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "Invoice": {
+            "required": ["item", "qty", "date", "due", "client"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "item": {
+                    "type": "string"
+                },
+                "qty": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "due": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "rate": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "tax": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "client": {
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateInvoice": {
+            "properties": {
+                "item": {
+                    "type": "string"
+                },
+                "qty": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "due": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "rate": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "tax": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "client": {
+                    "type": "string"
+                }
+            }
+        },
+        "Invoices": {
+            "properties": {
+                "docs": {
+                    "type": "array",
+                    "$ref": "#definitions/Invoice"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pages": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

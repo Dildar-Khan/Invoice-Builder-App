@@ -1,0 +1,131 @@
+<mat-card>
+    <h3>{{title}}</h3>
+    <form
+        class="form-container"
+        [formGroup]="invoiceForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+    >
+        <mat-form-field color="accent">
+            <input matInput placeholder="Item" formControlName="item" />
+            <mat-error
+                *ngIf="
+                    invoiceForm.get('item').invalid &&
+                    invoiceForm.get('item').touched
+                "
+                >Item is required</mat-error
+            >
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <input
+                matInput
+                [matDatepicker]="date"
+                placeholder="Choose a date"
+                formControlName="date"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="date"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+            <mat-error
+                *ngIf="
+                    invoiceForm.get('date').invalid &&
+                    invoiceForm.get('date').touched
+                "
+                >Date is required</mat-error
+            >
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <input
+                matInput
+                [matDatepicker]="due"
+                placeholder="Choose a date"
+                formControlName="due"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="due"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #due></mat-datepicker>
+            <mat-error
+                *ngIf="
+                    invoiceForm.get('due').invalid &&
+                    invoiceForm.get('due').touched
+                "
+                >Due date is required</mat-error
+            >
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <input
+                matInput
+                placeholder="Qty"
+                type="number"
+                formControlName="qty"
+            />
+            <mat-error
+                *ngIf="
+                    invoiceForm.get('qty').invalid &&
+                    invoiceForm.get('qty').touched
+                "
+                >Qty is required</mat-error
+            >
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <input
+                matInput
+                placeholder="Tax"
+                type="number"
+                formControlName="tax"
+            />
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <input
+                matInput
+                placeholder="Rate"
+                type="number"
+                formControlName="rate"
+            />
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>Select Client</mat-label>
+            <mat-select formControlName="client">
+                <mat-option *ngFor="let client of clients" [value]="client._id">
+                    {{ client.firstName }} {{ client.lastName }}
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="
+                    invoiceForm.get('client').invalid &&
+                    invoiceForm.get('client').touched
+                "
+                >Client is required</mat-error
+            >
+        </mat-form-field>
+
+        <div>
+            <button
+                mat-raised-button
+                [disabled]="!invoiceForm.valid"
+                type="submit"
+                color="accent"
+            >
+                Save
+            </button>
+            <button
+                class="btn-cancel"
+                mat-raised-button
+                type="reset"
+                color="primary"
+            >
+                Cancel
+            </button>
+        </div>
+    </form>
+</mat-card>
